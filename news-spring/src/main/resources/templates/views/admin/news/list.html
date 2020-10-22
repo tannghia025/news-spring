@@ -100,7 +100,7 @@
                                             <ul class="list-inline m-0">
 
                                                 <li class="list-inline-item">
-                                                    <button class="btn btn-success btn-sm rounded-0" type="button" th:onclick="|window.location.href='@{/quan-tri/bai-viet/chinh-sua(server=1,server2=2)}'|" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button" th:onclick="|window.location.href='@{/quan-tri/bai-viet/chinh-sua(id=${result.id})}'|" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                                                 </li>
                                             </ul>
                                         </td>
@@ -120,11 +120,16 @@
 
         <!--/Table-->
         </div>
-            <ul class="pagination" id="pagination"></ul>
-            <input type="hidden" value="" id="page" name="page" /> <input
-                type="hidden" value="" id="limit" name="limit"/>
-            <div th:replace="common/fragments_admin :: modal"/>
+
+
+
         </form>
+    <form th:action="@{/quan-tri/bai-viet/danh-sach}" id="formPagination" method="get">
+        <ul class="pagination" id="pagination"></ul>
+        <input type="hidden" value="" id="page" name="page" /> <input
+            type="hidden" value="" id="limit" name="limit"/>
+    </form>
+    <div th:replace="common/fragments_admin :: modal"/>
     <!--Modal-->
 
     </div>
@@ -159,7 +164,7 @@
                 if (currentPage != page) {
                     $('#limit').val(2);
                     $('#page').val(page);
-                    $('#formSubmit').submit();
+                    $('#formPagination').submit();
                 }
             }
         });
@@ -184,7 +189,7 @@
                         return $(this).val();
                     }).get();
 
-                    deleteNew(ids);
+                    deleteNew(123);
 
 
                 } else {
@@ -200,10 +205,10 @@
                 contentType: 'application/json',
                 data : JSON.stringify(data),
                 success : function(result) {
-                   window.location.href="";
+                 window.location.href="/quan-tri/bai-viet/danh-sach";
                 },
                 error : function(error) {
-                    window.location.href="";
+                window.location.href="/quan-tri/bai-viet/danh-sach";
                 }
             });
         }

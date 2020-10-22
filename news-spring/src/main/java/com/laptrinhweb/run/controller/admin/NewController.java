@@ -30,9 +30,10 @@ public class NewController {
             newOutPut.setTotalPage((int) Math.ceil(newService.totalItem()/limit));
 
         }else{
-           newOutPut.setListResult(newService.findAll());
-           newOutPut.setPage(1);
-           newOutPut.setTotalPage(1);
+            newOutPut.setPage(1);
+            Pageable pageable = new PageRequest(0,2);
+            newOutPut.setListResult(newService.findAll(pageable));
+            newOutPut.setTotalPage((int) Math.ceil(newService.totalItem()/2));
 
         }
         mav.addObject("newOutPut",newOutPut);
