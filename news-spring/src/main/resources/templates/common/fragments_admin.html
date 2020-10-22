@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="admin_head">
+    <meta charset="UTF-8"/>
+    <title>Trang Chủ Quản Trị</title>
+    <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/admin/css/animate.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/admin/css/light-bootstrap-dashboard.css?v=2.0.0}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/admin/css/demo.css}" rel="stylesheet" type="text/css"/>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'/>
+    <link th:href="@{/admin/css/pe-icon-7-stroke.css}" rel="stylesheet" />
+    <link th:href="@{/admin/css/sweetalert2.min.css}" rel="stylesheet" />
+    <link href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link th:href="@{/admin/css/modal/modal.css}" rel="stylesheet" />
+
+    <script type="text/javascript" th:src="@{/admin/js/jquery.3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/bootstrap-notify.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/chartist.min.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/light-bootstrap-dashboard.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/jquery.twbsPagination.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/sweetalert2.min.js}"/>
+
+
+</head>
+<body>
+<div th:fragment="menu">
+    <div class="sidebar" data-color="purple">
+
+
+
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="" class="simple-text">
+                    Creative Tim
+                </a>
+            </div>
+
+            <ul class="nav nav-mobile-menu">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-dashboard"></i>
+                            <p class="hidden-lg hidden-md">Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-globe"></i>
+                            <b class="caret hidden-lg hidden-md"></b>
+                            <p class="hidden-lg hidden-md">
+                                5 Notifications
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Notification 1</a></li>
+                            <li><a href="#">Notification 2</a></li>
+                            <li><a href="#">Notification 3</a></li>
+                            <li><a href="#">Notification 4</a></li>
+                            <li><a href="#">Another notification</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-search"></i>
+                            <p class="hidden-lg hidden-md">Search</p>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="">
+                            <p>Account</p>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <p>
+                                Dropdown
+                                <b class="caret"></b>
+                            </p>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <p>Log out</p>
+                        </a>
+                    </li>
+                    <li class="separator hidden-lg"></li>
+                </ul>
+            </ul><ul class="nav">
+            <li class="active">
+                <a href="#">
+                    <i class="pe-7s-graph"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-user"></i>
+                    <p>User Profile</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-note2"></i>
+                    <p>Table List</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-science"></i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-map-marker"></i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="pe-7s-bell"></i>
+                    <p>Notifications</p>
+                </a>
+            </li>
+
+        </ul>
+        </div>
+        <div class="sidebar-background"></div>
+</div>
+</div>
+
+<!-- Modal EDIT ADD-->
+<div th:fragment="modal" id="myModal" class="modal">
+    <div th:replace="common/modal/modal_news :: modal_news"/>
+
+
+</div>
+
+<script type="text/javascript" th:fragment="modal_js">
+    var modal = document.getElementById("myModal");
+
+    var btn = document.getElementById("btn_add");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script type="text/javascript" th:src="@{/admin/js/table/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/fragments_admin :: admin_head">
+
+</head>
+<body>
+<!--header-->
+<div class="wrapper">
+    <header th:replace="common/fragments_admin :: menu"/>
+
+
+
+    <div class="main-panel">
+        <!--Nav bar-->
+        <nav class="navbar navbar-findcond ">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Findcond</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-fw fa-bell-o"></i> Bildirimler <span class="badge">0</span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Music</span> sayfası <span class="badge">Video</span> sayfasında etiketlendi</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Music</span> sayfasında iletiniz beğenildi</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Video</span> sayfasında iletiniz beğenildi</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Game</span> sayfasında iletiniz beğenildi</a></li>
+                            </ul>
+                        </li>
+                        <li class="active"><a href="#">Ana Sayfa <span class="sr-only">(current)</span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Geri bildirim</a></li>
+                                <li><a href="#">Yardım</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Ayarlar</a></li>
+                                <li><a href="#exit">Çıkış yap</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <!--/Nav bar-->
+<div class="mid">
+
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-del-add">
+                            <button class="btn btn-warning btn-sm rounded-0" type="button"  data-toggle="tooltip" data-placement="top" title="Delete" id="btn_add"><i class="fa fa-plus-circle"></i></button>
+                            <button class="btn btn-danger btn-sm rounded-0" type="button" onclick="warningBeforeDelete()" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--Table-->
+        <form th:action="@{/quan-tri/bai-viet/danh-sach}" id="formSubmit" method="get">
+        <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-5">
+
+                            <!-- Responsive table -->
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="checkAll"/></th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Tên Tiêu đề</th>
+                                        <th scope="col">Mô tả ngắn</th>
+                                        <th scope="col"> Thao tác</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="result : ${newOutPut.listResult}">
+                                        <th><input type="checkbox" th:id="'check_'+${result.id}" th:value="${result.id}"/></th>
+                                        <th  th:text="${result.id}"></th>
+                                        <td th:text="${result.title}"></td>
+                                        <td th:text="${result.shortDescription}"></td>
+                                        <td>
+                                            <!-- Call to action buttons -->
+                                            <ul class="list-inline m-0">
+
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button" th:onclick="|window.location.href='@{/quan-tri/bai-viet/chinh-sua(server=1,server2=2)}'|" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        <!--/Table-->
+        </div>
+            <ul class="pagination" id="pagination"></ul>
+            <input type="hidden" value="" id="page" name="page" /> <input
+                type="hidden" value="" id="limit" name="limit"/>
+            <div th:replace="common/fragments_admin :: modal"/>
+        </form>
+    <!--Modal-->
+
+    </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<!--Contend-->
+
+
+
+
+
+<!--/Content-->
+<script th:inline="javascript">
+
+    var currentPage = [[${newOutPut.page}]];
+    var totalPage = [[${newOutPut.totalPage}]];
+    $(function() {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages : totalPage,
+            visiblePages : 10,
+            startPage : currentPage,
+            onPageClick : function(event, page) {
+                if (currentPage != page) {
+                    $('#limit').val(2);
+                    $('#page').val(page);
+                    $('#formSubmit').submit();
+                }
+            }
+        });
+    });
+
+    function warningBeforeDelete() {
+        swal({
+            title : "Are you sure?",
+            text : "You will not be able to recover this imaginary file!",
+            type : "warning",
+            showCancelButton : true,
+            confirmButtonClass : "btn-danger",
+            confirmButtonText : "Yes, delete it!",
+            cancelButtonText : "No, cancel plx!",
+
+
+        }).then(
+            function(result) {
+                if (result.value) {
+                    var data = {};
+                    var ids = $('tbody input[type=checkbox]:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    deleteNew(ids);
+
+
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)",
+                        "error");
+                }
+            });
+
+        function deleteNew(data) {
+            $.ajax({
+                url : '/api/new',
+                type : 'DELETE',
+                contentType: 'application/json',
+                data : JSON.stringify(data),
+                success : function(result) {
+                   window.location.href="";
+                },
+                error : function(error) {
+                    window.location.href="";
+                }
+            });
+        }
+    }
+
+
+
+</script>
+<script th:replace="common/fragments_admin :: modal_js"/>
+
+
+</body>
+</html>
