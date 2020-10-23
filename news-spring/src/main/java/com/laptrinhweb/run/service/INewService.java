@@ -13,5 +13,6 @@ public interface INewService {
     int totalItem();
     List<NewDTO> findAll(Pageable pageable);
     List<NewDTO> findAll();
+    NewDTO findOne(long id);
 
 }

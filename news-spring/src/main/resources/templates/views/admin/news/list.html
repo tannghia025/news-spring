@@ -129,7 +129,11 @@
         <input type="hidden" value="" id="page" name="page" /> <input
             type="hidden" value="" id="limit" name="limit"/>
     </form>
-    <div th:replace="common/fragments_admin :: modal"/>
+    <!--Modal-->
+    <div id="myModal" class="modal">
+        <div th:replace="common/fragments_admin :: modal"/>
+    </div>
+
     <!--Modal-->
 
     </div>
@@ -162,7 +166,7 @@
             startPage : currentPage,
             onPageClick : function(event, page) {
                 if (currentPage != page) {
-                    $('#limit').val(2);
+                    $('#limit').val(4);
                     $('#page').val(page);
                     $('#formPagination').submit();
                 }
@@ -218,6 +222,11 @@
 
 </script>
 <script th:replace="common/fragments_admin :: modal_js"/>
+
+<script th:replace="common/fragments_admin :: js_addEdit"/>
+
+
+
 
 
 </body>

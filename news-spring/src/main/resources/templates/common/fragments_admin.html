@@ -154,12 +154,24 @@
 </div>
 
 <!-- Modal EDIT ADD-->
-<div th:fragment="modal" id="myModal" class="modal">
-    <div th:replace="common/modal/modal_news :: modal_news"/>
+<div th:fragment="modal" >
+    <th:block th:switch="${modal}">
+        <div th:case="news_insert">
+            <div th:replace="common/modal/modal_news :: modal_news"/>
+        </div>
+        <div th:case="news_update">
+            <div  th:replace="common/modal/modal_news :: modal_news_up"/>
+        </div>
+
+
+
+
+    </th:block>
+
 
 
 </div>
-
+<!--MODAL JS-->
 <script type="text/javascript" th:fragment="modal_js">
     var modal = document.getElementById("myModal");
 
@@ -180,6 +192,55 @@
             modal.style.display = "none";
         }
     }
+</script>
+<!--FUNCTION ADD AND EDIT JS -->
+<script th:fragment="js_addEdit" th:inline="javascript">
+    $('#btnAddAndEdit').click(function (e){
+        e.preventDefault();
+        var data= {};
+        var formData = $('#formSubmitAdd').serializeArray();
+        $.each(formData,function (i,v){
+            data[""+v.name+""]=v.value;
+        })
+
+        if(id==""){
+            addNew(data);
+        }else{
+            updateNew(data);
+        }
+    })
+
+    function addNew(data){
+        $.ajax({
+            url:'/api/new',
+            type:'POST',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result){
+                window.location.href="/quan-tri/bai-viet/danh-sach";
+            },
+            error: function (error){
+                alert('Khong the them moi ')
+            }
+        });
+    }
+    function updateNew(data){
+        $.ajax({
+            url:'/api/new',
+            type:'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result){
+                window.location.href="/quan-tri/bai-viet/danh-sach";
+            },
+            error: function (error){
+                alert('Khong the them moi ')
+            }
+        });
+    }
+
 </script>
 <script type="text/javascript" th:src="@{/admin/js/table/main.js}"></script>
 </body>

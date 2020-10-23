@@ -1,5 +1,5 @@
-<!-- Modal content -->
-<div th:fragment="modal_news"  class="modal-content">
+<!-- Modal content Insert -->
+<div th:fragment="modal_news" class="modal-content" xmlns:th="http://www.w3.org/1999/html">
     <div class="modal-header">
         <span class="close">&times;</span>
         <h2>Thêm mới</h2>
@@ -14,12 +14,27 @@
                                 <h4 class="card-title">Edit Profile</h4>
                             </div>
                             <div class="card-body">
-                                <form id="formSubmit">
+                                <form id="formSubmitAdd">
                                     <div class="row">
                                         <div class="col-md-5 pr-1">
                                             <div class="form-group">
                                                 <label>Người Tạo (disabled)</label>
-                                                <input type="text" class="form-control" disabled="" placeholder="Company" value="Admin"/>
+                                                <input type="text" class="form-control" disabled="" placeholder="Company" th:value="${#httpServletRequest.userPrincipal.name}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                                <label>Thể loại</label>
+                                                <select class="form-control" name="categoryCode" id="categoryCode">
+                                                    <th:block th:each="category : ${listCate}">
+                                                        <option th:value="${category.code}" th:utext="${category.name}"/>
+
+                                                    </th:block>
+
+
+
+                                                </select>
+
                                             </div>
                                         </div>
 
@@ -29,13 +44,13 @@
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Tiêu đề</label>
-                                                <input type="text" class="form-control" id="title" name="title"/>
+                                                <input type="text" class="form-control" th:id="title"  th:name="title"/>
                                             </div>
                                         </div>
                                         <div class="col-md-6 pl-1">
                                             <div class="form-group">
                                                 <label>Thumbnail</label>
-                                                <input type="text" class="form-control" name="thumbnail" id="thumbnail"/>
+                                                <input type="text" class="form-control" th:name="thumbnail" th:id="thumbnail" />
                                             </div>
                                         </div>
                                     </div>
@@ -43,7 +58,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Mô tả ngắn</label>
-                                                <textarea rows="4" cols="80" class="form-control" id="shortDescription" name="shortDescription" placeholder="Here can be your short description" value="Mike"></textarea>
+                                                <textarea rows="4" cols="80" class="form-control" th:id="shortDescription" th:name="shortDescription" placeholder="Here can be your short description" ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -53,10 +68,107 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Nội dung</label>
-                                                <textarea rows="4" cols="80" class="form-control" id="content" name="content" placeholder="Here can be your content" value="Mike"></textarea>
+                                                <textarea rows="4" cols="80" class="form-control" th:id="content" th:name="content"  placeholder="Here can be your content" ></textarea>
                                             </div>
                                         </div>
                                     </div>
+                                    <th:block th:if="${newId}">
+                                        <input type="hidden" th:id="newId" th:value="${newId}"/>
+                                    </th:block>
+                                    <input type="hidden" th:id="newId"/>
+                                    <button type="submit" id="btnAddAndEdit" class="btn btn-info btn-fill pull-right">Tạo Bài Viết</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <h3>Thêm mới</h3>
+    </div>
+</div><!-- Modal content Update -->
+<div th:fragment="modal_news_up" class="modal-content" xmlns:th="http://www.w3.org/1999/html">
+    <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Thêm mới</h2>
+    </div>
+    <div class="modal-body">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Edit Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="formSubmitAdd">
+                                    <div class="row">
+                                        <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                                <label>Người Tạo (disabled)</label>
+                                                <input type="text" class="form-control" disabled="" placeholder="Company" th:value="${#httpServletRequest.userPrincipal.name}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                                <label>Thể loại</label>
+                                                <select class="form-control" name="categoryCode" id="categoryCode">
+
+                                                    <th:block th:each="category : ${listCate}">
+                                                        <option th:value="${category.code}" th:utext="${category.name}"/>
+
+                                                    </th:block>
+
+
+
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>Tiêu đề</label>
+                                                <input type="text" class="form-control" th:id="title"  th:value="${newOld.title}" th:name="title"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Thumbnail</label>
+                                                <input type="text" class="form-control" th:name="thumbnail" th:value="${newOld.thumbnail}" th:id="thumbnail" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Mô tả ngắn</label>
+                                                <textarea rows="4" cols="80" class="form-control" th:id="shortDescription" th:utext="${newOld.shortDescription}" th:name="shortDescription" placeholder="Here can be your short description" ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Nội dung</label>
+                                                <textarea rows="4" cols="80" class="form-control" th:id="content" th:name="content" th:utext="${newOld.content}" placeholder="Here can be your content" ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <th:block th:if="${newId}">
+                                        <input type="hidden" th:id="newId" th:value="${newId}"/>
+                                    </th:block>
+                                    <input type="hidden" th:id="newId"/>
                                     <button type="submit" id="btnAddAndEdit" class="btn btn-info btn-fill pull-right">Tạo Bài Viết</button>
                                     <div class="clearfix"></div>
                                 </form>
@@ -72,3 +184,9 @@
         <h3>Thêm mới</h3>
     </div>
 </div>
+
+
+
+
+
+

@@ -75,4 +75,9 @@ public class NewService implements INewService {
 
         return result;
     }
+
+    @Override
+    public NewDTO findOne(long id) {
+        return newConverter.toDto(newRepository.findOne(id));
+    }
 }
