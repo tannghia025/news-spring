@@ -28,38 +28,47 @@ public class NewController {
 
 
     @RequestMapping(value = "/quan-tri/bai-viet/danh-sach", method = RequestMethod.GET)
-    public ModelAndView showListNews(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
+    public ModelAndView showListNews(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "alert", required = false) String alert) {
         ModelAndView mav = new ModelAndView("views/admin/news/list");
         NewOutPut newOutPut = new NewOutPut();
-        if(page!=null&&limit!=null){
-            newOutPut.setPage(page);
-            Pageable pageable = new PageRequest(page-1,limit);
-            newOutPut.setListResult(newService.findAll(pageable));
-            newOutPut.setTotalPage((int) Math.ceil(newService.totalItem()/limit)+1);
-
-        }else{
-            newOutPut.setPage(1);
-            Pageable pageable = new PageRequest(0,4);
-            newOutPut.setListResult(newService.findAll(pageable));
-            newOutPut.setTotalPage((int) Math.ceil(newService.totalItem()/4)+1);
+        if (alert!=null){
+            if(alert.equalsIgnoreCase("success")){
+                mav.addObject("alert_sucess","Thao tác được thực hiện thành công !!");
+            }else{
+                mav.addObject("alert_error","Thao tác được thực hiện không thành công !!");
+            }
         }
+
+            if (page != null && limit != null) {
+                newOutPut.setPage(page);
+                Pageable pageable = new PageRequest(page - 1, limit);
+                newOutPut.setListResult(newService.findAll(pageable));
+                newOutPut.setTotalPage((int) Math.ceil(newService.totalItem() / limit) + 1);
+
+            } else {
+                newOutPut.setPage(1);
+                Pageable pageable = new PageRequest(0, 4);
+                newOutPut.setListResult(newService.findAll(pageable));
+                newOutPut.setTotalPage((int) Math.ceil(newService.totalItem() / 4) + 1);
+            }
         List<CategoryDTO> listCate = categorysServices.findAll();
-        mav.addObject("listCate",listCate);
-        mav.addObject("newOutPut",newOutPut);
-        mav.addObject("modal","news_insert");
+        mav.addObject("listCate", listCate);
+        mav.addObject("newOutPut", newOutPut);
+        mav.addObject("modal", "news_insert");
 
         return mav;
     }
-    @RequestMapping(value = "/quan-tri/bai-viet/chinh-sua",method = RequestMethod.GET)
-    public ModelAndView editNew(@RequestParam(value = "id",required = false) Long id){
+
+    @RequestMapping(value = "/quan-tri/bai-viet/chinh-sua", method = RequestMethod.GET)
+    public ModelAndView editNew(@RequestParam(value = "id", required = false) Long id) {
 
         ModelAndView mav = new ModelAndView("views/admin/news/edit");
         NewDTO newDTO = newService.findOne(id);
         List<CategoryDTO> listCate = categorysServices.findAll();
-        mav.addObject("listCate",listCate);
-        mav.addObject("id",id);
-        mav.addObject("newOld",newDTO);
-        mav.addObject("modal","news_update");
+        mav.addObject("listCate", listCate);
+        mav.addObject("id", id);
+        mav.addObject("newOld", newDTO);
+        mav.addObject("modal", "news_update");
         return mav;
     }
 

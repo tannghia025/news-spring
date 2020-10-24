@@ -9,6 +9,21 @@ import java.util.List;
 public class UserEntity extends BaseEntity {
     @Column
     private String username;
+//    @Column
+//    private String fullname;
+//
+//    @Column
+//    private String age;
+//
+//    @Column
+//    private String dateOfBirth;
+//
+//    @Column
+//    private String address;
+//
+//    @Column
+//    private String cmnd;
+
     @Column
     private String password;
 

@@ -9,6 +9,9 @@ import java.util.List;
 public class RoleEntity extends BaseEntity {
     @Column
     private String name;
+
+
+
     @Column
     private String code;
     @ManyToMany(mappedBy = "roles")

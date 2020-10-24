@@ -44,7 +44,7 @@
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-dashboard"></i>
-                            <p class="hidden-lg hidden-md">Dashboard</p>
+                            <p class="hidden-lg hidden-md">Thông tin cá nhân</p>
                         </a>
                     </li>
                     <li class="dropdown">
@@ -153,6 +153,49 @@
 </div>
 </div>
 
+<!--Nav Admin-->
+
+    <!--Nav bar-->
+    <nav th:fragment="nav_admin" class="navbar navbar-findcond ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Findcond</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-fw fa-bell-o"></i> Bildirimler <span class="badge">0</span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Music</span> sayfası <span class="badge">Video</span> sayfasında etiketlendi</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Music</span> sayfasında iletiniz beğenildi</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Video</span> sayfasında iletiniz beğenildi</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Game</span> sayfasında iletiniz beğenildi</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="#">Ana Sayfa <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Geri bildirim</a></li>
+                            <li><a href="#">Yardım</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Ayarlar</a></li>
+                            <li><a href="#exit">Çıkış yap</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+<!--Nav Admin-->
+
 <!-- Modal EDIT ADD-->
 <div th:fragment="modal" >
     <th:block th:switch="${modal}">
@@ -193,6 +236,73 @@
         }
     }
 </script>
+
+<!--Function delete JS-->
+<script th:inline="javascript" th:fragment="delete_js">
+    var currentPage = [[${newOutPut.page}]];
+    var totalPage = [[${newOutPut.totalPage}]];
+    $(function() {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages : totalPage,
+            visiblePages : 10,
+            startPage : currentPage,
+            onPageClick : function(event, page) {
+                if (currentPage != page) {
+                    $('#limit').val(4);
+                    $('#page').val(page);
+                    $('#formPagination').submit();
+                }
+            }
+        });
+    });
+
+    function warningBeforeDelete() {
+        swal({
+            title : "Are you sure?",
+            text : "You will not be able to recover this imaginary file!",
+            type : "warning",
+            showCancelButton : true,
+            confirmButtonClass : "btn-danger",
+            confirmButtonText : "Yes, delete it!",
+            cancelButtonText : "No, cancel plx!",
+
+
+        }).then(
+            function(result) {
+                if (result.value) {
+                    var data = {};
+                    var ids = $('tbody input[type=checkbox]:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    deleteNew(ids);
+
+
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)",
+                        "error");
+                }
+            });
+
+        function deleteNew(data) {
+            $.ajax({
+                url : '/api/new',
+                type : 'DELETE',
+                contentType: 'application/json',
+                data : JSON.stringify(data),
+                success : function(result) {
+
+                    window.location.href="/quan-tri/bai-viet/danh-sach?alert=success";
+
+                },
+                error : function(error) {
+                    window.location.href="/quan-tri/bai-viet/danh-sach?alert=error";
+                }
+            });
+        }
+    }
+</script>
+
 <!--FUNCTION ADD AND EDIT JS -->
 <script th:fragment="js_addEdit" th:inline="javascript">
     $('#btnAddAndEdit').click(function (e){
@@ -202,6 +312,7 @@
         $.each(formData,function (i,v){
             data[""+v.name+""]=v.value;
         })
+        var id = $('#newId').val();
 
         if(id==""){
             addNew(data);
@@ -218,10 +329,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result){
-                window.location.href="/quan-tri/bai-viet/danh-sach";
+                window.location.href="/quan-tri/bai-viet/danh-sach?alert=success";
             },
             error: function (error){
-                alert('Khong the them moi ')
+                window.location.href="/quan-tri/bai-viet/danh-sach?alert=error";
             }
         });
     }
@@ -233,10 +344,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result){
-                window.location.href="/quan-tri/bai-viet/danh-sach";
+                window.location.href="/quan-tri/bai-viet/danh-sach?alert=success";
             },
             error: function (error){
-                alert('Khong the them moi ')
+                window.location.href="/quan-tri/bai-viet/danh-sach?alert=error";
             }
         });
     }
