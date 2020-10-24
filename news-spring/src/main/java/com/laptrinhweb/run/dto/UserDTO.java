@@ -6,12 +6,23 @@ import java.util.List;
 public class UserDTO extends AbstractDTO<UserDTO> {
     private String username;
     private String password;
+    private String fullname;
     private int status;
     private String age;
     private String dateOfBirth;
     private String address;
     private String cmnd;
+    private String roleCode;
     private List<RoleDTO> roles;
+
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
 
     public String getUsername() {
         return username;
@@ -75,5 +86,13 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

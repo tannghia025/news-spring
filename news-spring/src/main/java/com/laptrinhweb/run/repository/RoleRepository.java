@@ -1,4 +1,9 @@
 package com.laptrinhweb.run.repository;
 
-public class RoleRepository {
+import com.laptrinhweb.run.entity.RoleEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<RoleEntity,Long> {
+
+    RoleEntity findFirstByCode(String code);
 }
