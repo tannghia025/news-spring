@@ -1,11 +1,16 @@
 package com.laptrinhweb.run.dto;
 
+import javax.persistence.Column;
 import java.util.List;
 
 public class UserDTO extends AbstractDTO<UserDTO> {
     private String username;
     private String password;
     private int status;
+    private String age;
+    private String dateOfBirth;
+    private String address;
+    private String cmnd;
     private List<RoleDTO> roles;
 
     public String getUsername() {
@@ -40,13 +45,35 @@ public class UserDTO extends AbstractDTO<UserDTO> {
         this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", roles=" + roles +
-                '}';
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCmnd() {
+        return cmnd;
+    }
+
+    public void setCmnd(String cmnd) {
+        this.cmnd = cmnd;
     }
 }

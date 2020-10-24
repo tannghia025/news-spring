@@ -19,6 +19,10 @@ public class UserConverter {
         userDTO.setUsername(entity.getUsername());
         userDTO.setPassword(entity.getPassword());
         userDTO.setStatus(entity.getStatus());
+        userDTO.setAddress(entity.getModifiedBy());
+        userDTO.setAge(entity.getAge());
+        userDTO.setCmnd(entity.getCmnd());
+        userDTO.setDateOfBirth(entity.getDateOfBirth());
         List<RoleDTO> roles = new ArrayList<>();
         RoleConverter roleConverter = new RoleConverter();
         for (RoleEntity roleEntity: entity.getRoles()) {

@@ -9,20 +9,20 @@ import java.util.List;
 public class UserEntity extends BaseEntity {
     @Column
     private String username;
-//    @Column
-//    private String fullname;
-//
-//    @Column
-//    private String age;
-//
-//    @Column
-//    private String dateOfBirth;
-//
-//    @Column
-//    private String address;
-//
-//    @Column
-//    private String cmnd;
+    @Column
+    private String fullname;
+
+    @Column
+    private String age;
+
+    @Column
+    private String dateOfBirth;
+
+    @Column
+    private String address;
+
+    @Column
+    private String cmnd;
 
     @Column
     private String password;
@@ -66,4 +66,43 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCmnd() {
+        return cmnd;
+    }
+
+    public void setCmnd(String cmnd) {
+        this.cmnd = cmnd;
+    }
 }
